@@ -1,0 +1,7 @@
+Dest	Dist	Path
+C1      0       C1
+C2      35      C1->C6->C2
+C3      45      C1->C5->C3
+C4      35      C1->C5->C4
+C5      25      C1->C5
+C6      10      C1->C6
