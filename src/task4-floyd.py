@@ -38,25 +38,26 @@ def main():
     ]
 
     distances, paths = floyd(adjacency_matrix, node_count)
+    result = sorted(
+        [(u, v) for u in range(node_count) for v in range(node_count) if u != v],
+        key=lambda x: (distances[x[0]][x[1]], len(paths[x[0]][x[1]]), x[0], x[1]),
+    )
     output_file = open("output\\task4-output.txt", "w")
     print("Srce\tDest\tDist\tPath")
     output_file.write("Srce\tDest\tDist\tPath\n")
-    for u in range(node_count):
-        for v in range(node_count):
-            if u == v:
-                continue
-            elif distances[u][v] == INF:
-                print(f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{INF:<8}{None}")
-                output_file.write(
-                    f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{INF:<8}{None}\n"
-                )
-            else:
-                print(
-                    f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{distances[u][v]:<8}{'->'.join(map(lambda x: 's' + str(x + 1), paths[u][v]))}"
-                )
-                output_file.write(
-                    f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{distances[u][v]:<8}{'->'.join(map(lambda x: 's' + str(x + 1), paths[u][v]))}\n"
-                )
+    for u, v in result:
+        if distances[u][v] == INF:
+            print(f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{INF:<8}{None}")
+            output_file.write(
+                f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{INF:<8}{None}\n"
+            )
+        else:
+            print(
+                f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{distances[u][v]:<8}{'->'.join(map(lambda x: 's' + str(x + 1), paths[u][v]))}"
+            )
+            output_file.write(
+                f"{'s' + str(u + 1):<8}{'s' + str(v + 1):<8}{distances[u][v]:<8}{'->'.join(map(lambda x: 's' + str(x + 1), paths[u][v]))}\n"
+            )
     output_file.close()
 
 
