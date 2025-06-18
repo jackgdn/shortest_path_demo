@@ -29,7 +29,7 @@ def floyd(adjacency_matrix, node_count):
 
 
 def main():
-    task_file_path = Path("tasks") / "task1.txt"
+    task_file_path = Path(__file__).parent.parent / Path("tasks") / "task1.txt"
     with open(task_file_path, "r") as task_file:
         adjacency_matrix = [
             [INF if isinstance(x, str) else x for x in row]
@@ -39,7 +39,9 @@ def main():
     node_count = len(adjacency_matrix)
     distances, paths = floyd(adjacency_matrix, node_count)
 
-    output_file_path = Path("output") / "task2-output.txt"
+    output_file_path = (
+        Path(__file__).parent.parent / Path("output") / "task2-output.txt"
+    )
     output_file = open(output_file_path, "w")
     print("Dest\tDist\tPath")
     output_file.write("Dest\tDist\tPath\n")

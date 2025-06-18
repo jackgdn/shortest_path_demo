@@ -34,7 +34,7 @@ def dijkstra(adjacency_matrix, start_node, node_count):
 
 
 def main():
-    task_file_path = Path("tasks") / "task1.txt"
+    task_file_path = Path(__file__).parent.parent / Path("tasks") / "task1.txt"
     with open(task_file_path, "r") as task_file:
         adjacency_matrix = [
             [INF if isinstance(x, str) else x for x in row]
@@ -44,7 +44,9 @@ def main():
     node_count = len(adjacency_matrix)
     distances, paths = dijkstra(adjacency_matrix, 0, node_count)
 
-    output_file_path = Path("output") / "task1-output.txt"
+    output_file_path = (
+        Path(__file__).parent.parent / Path("output") / "task1-output.txt"
+    )
     output_file = open(output_file_path, "w")
     print("Dest\tDist\tPath")
     output_file.write("Dest\tDist\tPath\n")
