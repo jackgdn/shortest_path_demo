@@ -1,4 +1,5 @@
 from ast import literal_eval
+from pathlib import Path
 
 INF = float("inf")
 
@@ -33,7 +34,8 @@ def dijkstra(adjacency_matrix, start_node, node_count):
 
 
 def main():
-    with open("tasks\\task1.txt", "r") as task_file:
+    task_file_path = Path("tasks") / "task1.txt"
+    with open(task_file_path, "r") as task_file:
         adjacency_matrix = [
             [INF if isinstance(x, str) else x for x in row]
             for row in literal_eval(task_file.read())
@@ -42,16 +44,16 @@ def main():
     node_count = len(adjacency_matrix)
     distances, paths = dijkstra(adjacency_matrix, 0, node_count)
 
-    result = tuple(zip(distances, paths))
-    output_file = open("output\\task1-output.txt", "w")
+    output_file_path = Path("output") / "task1-output.txt"
+    output_file = open(output_file_path, "w")
     print("Dest\tDist\tPath")
     output_file.write("Dest\tDist\tPath\n")
     for node in range(node_count):
         print(
-            f"{'C' + str(node + 1):<8}{result[node][0]:<8}{'->'.join(map(lambda x: 'C' + str(x + 1), result[node][1]))}"
+            f"{'C' + str(node + 1):<8}{distances[node]:<8}{'->'.join(map(lambda x: 'C' + str(x + 1), paths[node]))}"
         )
         output_file.write(
-            f"{'C' + str(node + 1):<8}{result[node][0]:<8}{'->'.join(map(lambda x: 'C' + str(x + 1), result[node][1]))}\n"
+            f"{'C' + str(node + 1):<8}{distances[node]:<8}{'->'.join(map(lambda x: 'C' + str(x + 1), paths[node]))}\n"
         )
     output_file.close()
 

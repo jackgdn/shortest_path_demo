@@ -1,4 +1,5 @@
 from ast import literal_eval
+from pathlib import Path
 
 INF = float("inf")
 
@@ -30,7 +31,8 @@ def dijkstra(adjacency_list, start_node, node_count):
 
 
 def main():
-    with open("tasks\\task3.txt", "r") as task_file:
+    task_file_path = Path("tasks") / "task3.txt"
+    with open(task_file_path, "r") as task_file:
         data = task_file.read().strip().split("\n\n")
         raw_adjacency_list = literal_eval(data[0])
         mapping = literal_eval(data[1])
@@ -43,7 +45,8 @@ def main():
     node_count = len(adjacency_list)
     distances, paths = dijkstra(adjacency_list, mapping["A"], node_count)
 
-    output_file = open("output\\task3-output.txt", "w")
+    output_file_path = Path("output") / "task3-output.txt"
+    output_file = open(output_file_path, "w")
     print("Dest\tDist\tPath")
     output_file.write("Dest\tDist\tPath\n")
     for node in range(node_count):

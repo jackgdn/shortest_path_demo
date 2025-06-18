@@ -1,4 +1,5 @@
 from ast import literal_eval
+from pathlib import Path
 
 INF = float("inf")
 
@@ -28,7 +29,8 @@ def floyd(adjacency_matrix, node_count):
 
 
 def main():
-    with open("tasks\\task4.txt", "r") as task_file:
+    task_file_path = Path("tasks") / "task4.txt"
+    with open(task_file_path, "r") as task_file:
         adjacency_list = literal_eval(task_file.read())
         node_count = len(adjacency_list)
 
@@ -42,7 +44,9 @@ def main():
         [(u, v) for u in range(node_count) for v in range(node_count) if u != v],
         key=lambda x: (distances[x[0]][x[1]], len(paths[x[0]][x[1]]), x[0], x[1]),
     )
-    output_file = open("output\\task4-output.txt", "w")
+
+    output_file_path = Path("output") / "task4-output.txt"
+    output_file = open(output_file_path, "w")
     print("Srce\tDest\tDist\tPath")
     output_file.write("Srce\tDest\tDist\tPath\n")
     for u, v in result:
